@@ -1,0 +1,12 @@
+{
+  "languageserver": {
+    "vlang": {
+      "command": "vls",
+      "filetypes": ["vlang"]
+    },
+    "erlang": {
+      "command": "erlang_ls",
+      "filetypes": ["erlang"]
+    }
+  }
+}
