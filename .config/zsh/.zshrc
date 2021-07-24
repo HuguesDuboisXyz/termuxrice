@@ -96,11 +96,13 @@ bindkey '^e' edit-command-line
 echo "Load completions..."
 fpath=(${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-completions/src $fpath)
 fpath=(${XDG_CONFIG_HOME:-$HOME/.config}/zsh/completions $fpath)
+fpath=(/data/data/com.termux/files/usr/share/zsh/site-functions $fpath)
 autoload -Uz compinit
 compinit
 clear
 # Load fzf
-source /usr/share/doc/fzf/key-bindings.zsh 2>/dev/null
+source /data/data/com.termux/files/usr/share/doc/fzf/key-bindings.zsh 2>/dev/null
+source /data/data/com.termux/files/usr/share/doc/fzf/completion.zsh 2>/dev/null
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/fzf-extra.zsh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/fzf-extra.zsh"
 # Load fish autosuggestions
 source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" 2>/dev/null

@@ -1,0 +1,153 @@
+#compdef rebar3
+#autoload
+
+# rebar3 zsh completion
+
+typeset -A opt_args
+
+_rebar3() {
+    local rebar3_commands cmd cmds
+    if [[ "$CURRENT" -lt 2 ]]; then
+        return
+    elif [[ "$CURRENT" -eq 2 ]]; then
+        rebar3_commands=(
+            'as:Higher order provider for running multiple tasks in a sequence as a certain profiles.'
+            'clean:Remove compiled beam files from apps.'
+            'compile:Compile apps .app.src and .erl files.'
+            'cover:Perform coverage analysis.'
+            'ct:Run Common Tests.'
+            'deps:List dependencies'
+            'dialyzer:Run the Dialyzer analyzer on the project.'
+            'do:Higher order provider for running multiple tasks in a sequence.'
+            'edoc:Generate documentation using edoc.'
+            'escriptize:Generate escript archive.'
+            'eunit:Run EUnit Tests.'
+            {help,-h,--help}':Display a list of tasks or help for a given task or subtask.'
+            'hex:List hex tasks.'
+            'local:List local tasks.'
+            'new:Create new project from templates.'
+            'path:Print paths to build dirs in current profile.'
+            'plugins:List plugin tasks.'
+            'pkgs:List available packages.'
+            'release:Build release of project.'
+            'relup:Create relup of releases.'
+            'report:Provide a crash report to be sent to the rebar3 issues page.'
+            'shell:Run shell with project apps and deps in path.'
+            'tar:Tar archive of release built of project.'
+            'tree:Print dependency tree.'
+            'unlock:Unlock dependencies.'
+            'update:Update package index.'
+            'upgrade:Upgrade dependencies.'
+            {version,-v,--version}':Print version for rebar and current Erlang.'
+            'xref:Run cross reference analysis.'
+        )
+        _describe 'rebar3 commands' rebar3_commands
+        return
+    else
+        cmd="${words[2]}"
+        cmds=(clean ct shell cover eunit hex local help pkgs)
+        if [[ "${cmds[(r)$cmd]}" == "${cmd}" ]]; then
+            shift words
+            (( CURRENT-- ))
+            _rebar3_${cmd}
+            return
+        fi
+    fi
+}
+
+_rebar3_shell() {
+    _arguments \
+        '--config[Config file to use]:file:_files -f' \
+        '--name[Node name]:' \
+        '--sname[Node sname]:' \
+        '--setcookie[Sets the cookie]:' \
+        '--script_file[Path to an escript to be evaluated before applications are started]:file:_files'
+}
+
+_rebar3_ct() {
+    _arguments \
+        '--dir[Compile and run in these directories]:file:_files -/' \
+        '--suite[Suites to compile and run]:file:_files -/' \
+        '--group[Groups to run]:' \
+        '--config[Config files to use]:file:_files -f' \
+        '--logdir[Directory for logs]:file:_files -/' \
+        {-c,--cover}'[Generate cover data]:toggle:(true false)' \
+        {-v,--verbose}'[Enable verbose output]:toggle:(true false)'
+}
+
+_rebar3_eunit() {
+    _arguments \
+        '--suite[Suites to compile and run]:file:_path_files -/' \
+        '--app[Apps to run]:' \
+        {-f,--file}'[Files to run]' \
+        {-c,--cover}'[Generate cover data]:toggle:(true false)' \
+        {-v,--verbose}'[Enable verbose output]:toggle:(true false)'
+}
+
+_rebar3_clean() {
+    _arguments \
+        {-a,--all}'[Clean all apps include deps]' \
+        {-p,--profile}'[Clean under profile]:file:_files'
+}
+
+__help () {
+    declare -a tasks
+    tasks=(as clean compile cover ct deps help hex do edoc escriptize eunit new path pkgs relerase relup report shell tar tree unlock update upgrade version xref)
+    _wanted tasks expl 'help' compadd $tasks
+}
+
+_rebar3_help() {
+    _arguments ':feature:__help'
+}
+
+_rebar3_cover() {
+    _arguments \
+        {-r,--reset}'[Resets all cover data]' \
+        {-v,--verbose}'[Prints coverage analysis in the terminal]'
+}
+
+_rebar3_hex() {
+    _arguments -C ': :->command' '*:: :->arguments'
+
+    case $state in
+        (command)
+            _values 'hex' config cut docs info key publish owner user search
+            ;;
+        (arguments)
+            case "$words[1]" in
+                (user)
+                    _arguments ":user:(whoami register auth deauth reset_password)"
+                    ;;
+                (key)
+                    _arguments ":key:(list remove)"
+                    ;;
+                (config)
+                    _arguments ":config:(username key api_url cdn_url http_proxy https_proxy)"
+                    ;;
+                (owner)
+                    _arguments ":owner:(list add remove)"
+                    ;;
+                (*)
+                    _message 'Unknown subcommand'
+            esac
+            ;;
+    esac
+}
+
+_rebar3_local() {
+    local commands
+    commands=(
+        'install:Install locally'
+        'upgrade:Upgrade'
+    )
+    _describe -V 'local_commands' commands
+}
+
+__pkgs() {
+    local pkgs
+    pkgs=($(rebar3 pkgs |sed -n '1~3 p'| sed 's/.$//' | tr '\n' ' '))
+    _wanted pkgs expl 'pkgs' compadd  $pkgs
+}
+_rebar3_pkgs() {
+    _arguments ':feature:__pkgs'
+}

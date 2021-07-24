@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Get its remaining capacity and charge status.
+capacity=$(termux-battery-status | jq '.percentage') || break
+status=$(termux-battery-status | jq '.status')
+case "$status" in
+  '"DISCHARGING"') status="🔋" ;;
+  '"NOT CHARGING"') status="🛑" ;;
+  #'"CHARGING"') status="♻"  ;;
+  '"CHARGING"') status="🔌" ;;
+  '"FULL"') status="⚡" ;;
+  *) status="♻️" ;;
+esac
+warn=""
+# If it is discharging and 25% or less, we will add a ❗ as a warning.
+[ "$capacity" -le 25 ] && [ "$status" = "🔋" ] && warn="❗"
+
+printf "%s%s%s%% " "$status" "$warn" "$capacity"
+unset warn

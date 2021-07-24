@@ -1,12 +1,24 @@
 {
+  "coc.preferences.jumpCommand": "tab drop",
   "languageserver": {
     "vlang": {
       "command": "vls",
-      "filetypes": ["vlang"]
+      "filetypes": [
+        "vlang"
+      ]
     },
     "erlang": {
       "command": "erlang_ls",
-      "filetypes": ["erlang"]
+      "filetypes": [
+        "erlang"
+      ]
     }
-  }
+  },
+  "eslint.autoFixOnSave": true,
+  "eslint.filetypes": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ]
 }

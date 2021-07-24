@@ -5,54 +5,58 @@ command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
-	cat="bat" \
-	cp="cp -iv" \
-	mv="mv -iv" \
-	rm="rm -vI" \
-	cls="clear" \
-	mkd="mkdir -pv" \
+  cat="bat" \
+  cp="cp -iv" \
+  mv="mv -iv" \
+  rm="rm -vI" \
+  cls="clear" \
+  mkd="mkdir -pv" \
   open="xdg-open" \
-	yt="youtube-dl --add-metadata -i" \
-	yta="yt -x -f bestaudio/best" \
-	ffmpeg="ffmpeg -hide_banner" \
-	calcurse="calcurse -D ~/.config/calcurse"
+  yt="youtube-dl --add-metadata -i" \
+  yta="yt -x -f bestaudio/best" \
+  ffmpeg="ffmpeg -hide_banner" \
+  calcurse="calcurse -D ~/.config/calcurse"
 
 # Colorize commands when possible.
 alias \
-	ls="ls -hN --color=auto --group-directories-first" \
-	grep="grep --color=auto" \
-	diff="diff --color=auto" \
-	ccat="highlight --out-format=ansi"
+  ls="ls -hN --color=auto --group-directories-first" \
+  grep="grep --color=auto" \
+  diff="diff --color=auto" \
+  ccat="highlight --out-format=ansi"
 
 # These common commands are just too long! Abbreviate them.
 alias \
-	la="exa --git -la" \
-	ll="exa --git -l" \
-	ka="killall" \
-	abook="abook -C ${XDG_CONFIG_HOME:-$HOME/.config}/abook/abookrc --datafile ${XDG_CONFIG_HOME:-$HOME/.config}/abook/addressbook" \
-	trem="transmission-remote" \
-	YT="youtube-viewer" \
-	sdn="sudo shutdown -h now" \
-	f="$FILE" \
-	e="$EDITOR" \
-	xi="sudo xbps-install -S" \
-	xr="sudo xbps-remove -R" \
-	xq="xbps-query" \
-	z="zathura" \
+  la="exa --git -la" \
+  ll="exa --git -l" \
+  ka="killall" \
+  abook="abook -C ${XDG_CONFIG_HOME:-$HOME/.config}/abook/abookrc --datafile ${XDG_CONFIG_HOME:-$HOME/.config}/abook/addressbook" \
+  trem="transmission-remote" \
+  YT="youtube-viewer" \
+  f="$FILE" \
+  e="$EDITOR"
 
 # This alias is important. It enables the `pauseallmpv` command.
 alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
 
 # Git alias
 alias g="git" \
-	gd="git diff" \
-	gs="git status" \
-	ga="git add" \
-	gc="git commit -m" \
-	gr="git reset" \
-	gl="git log" \
-	gp="git push" \
-	gpom="git push origin master"
+  gd="git diff" \
+  gs="git status" \
+  ga="git add" \
+  gb="git branch" \
+  gba="git branch --all" \
+  gbd="git branch -D " \
+  gc="git commit -m" \
+  gco="git checkout " \
+  gr="git reset" \
+  gl="git log" \
+  gp="git push" \
+  gpl="git pull"  \
+  gpla="git pull --all"  \
+  gf="git fetch" \
+  gfa="git fetch --all" \
+  gfp="git fetch -p" \
+  gpom="git push origin master"
 
 # elixir / mix / iex / phoenix aliases
 alias \
@@ -73,10 +77,13 @@ alias \
 	mdoc='mix docs' \
 	mdl='mix dialyzer' \
 	mdlp='mix dialyzer --plt' \
+  mch="mix check" \
 	mcr='mix credo' \
 	mcrs='mix credo --strict' \
 	mcx='mix compile.xref' \
 	mdc='mix deps.compile' \
+	mdcl='mix deps.clean' \
+	mdcla='mix deps.clean --all' \
 	mdg='mix deps.get' \
 	mdgc='mix do deps.get, deps.compile' \
 	mdu='mix deps.update' \
@@ -138,3 +145,18 @@ alias \
 	pwdcopy="pwd | xclip -i" \
 	pwdpaste='cd `xclip -o`' \
 	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
+  ssh-tmux="ssh-agent tmux"
+
+
+# PostgreSQL
+alias \
+	pg-start="pg_ctl -D $PREFIX/var/lib/postgresql start" \
+	pg-stop="pg_ctl -D $PREFIX/var/lib/postgresql stop" \
+
+# Cd
+alias \
+	cd-elixir="cd ~/src/projects/elixir" \
+	cd-erlang="cd ~/src/projects/erlang" \
+	cd-projects="cd ~/src/projects" \
+	cd-shopli="cd ~/src/projects/elixir/shopli" \
+	cd-wk="cd ~/src/projects/elixir/wk_job"

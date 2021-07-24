@@ -55,6 +55,13 @@ Plug 'vim-erlang/vim-erlang-runtime' " erlang support
 
 Plug 'editorconfig/editorconfig-vim'
 
+" frontend development
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'jparise/vim-graphql'
+
 call plug#end()
 
 if has("termguicolors")
@@ -301,7 +308,7 @@ nmap <leader>gf :diffget //2<CR>
 "----------------------------------------------
 " Plugin: neoclide/coc.nvim
 "----------------------------------------------
-let g:coc_global_extensions = ['coc-elixir', 'coc-diagnostic', 'coc-rust-analyzer']
+let g:coc_global_extensions = ['coc-elixir', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
     let col = col('.') - 1
@@ -325,7 +332,13 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Sementic code navigation
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>s :<C-u>CocList -I symbols<cr>
+nmap <leader>do <Plug>(coc-codeaction)
 
 "----------------------------------------------
 " Plugin: dense-analysis/ale
@@ -355,6 +368,12 @@ augroup END
 "----------------------------------------------
 " Enable automatically formatting file via "v fmt -" before writing buffer.
 let g:v_autofmt_bufwritepre = 1
+
+"----------------------------------------------
+" frontend development js / ts / react
+"----------------------------------------------
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
 
 "----------------------------------------------
 " nitrogen web framework

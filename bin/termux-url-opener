@@ -1,0 +1,108 @@
+#!/data/data/com.termux/files/usr/bin/zsh
+#
+# This is a termux-url-opener script to do diffrent tasks on my Android phone
+#
+#
+#
+# How to use this script
+#############################
+# Create the bin directory
+# ➜ ~ mkdir bin
+# ➜ ~ cd bin
+# Create the script (copy & paste) I use neovim. Use your prefered editor
+# ➜ nvim termux-url-opener
+#
+# Make it executable
+# ➜ chmod +x termux-url-opener
+#
+# Install zsh wget and ffmpeg
+# ➜ pkg install zsh wget ffmpeg python
+# https://wiki.termux.com/wiki/Shells
+#
+# Install youtube_dl and scdl with pip
+# ➜ pip install youtube_dl
+# ➜ pip install scdl mutagen
+#
+# run the following command to enable the termux storage features
+# ➜ termux-setup-storage
+# https://wiki.termux.com/wiki/Termux-setup-storage
+
+url=$1
+echo "What should I do with $url ?"
+echo "y) download youtube video to movies-folder"
+echo "u) download youtube video and convert it to mp3 (music-folder)"
+echo "s) download with scdl (soundcloud)"
+echo "w) wget file to download-folder"
+echo "g) clone git repository"
+echo "x) nothing"
+
+read CHOICE
+case $CHOICE in
+    y)
+        youtube-dl -o "/storage/emulated/0/Movies/%(title)s.%(ext)s" $url
+    ;;
+    u)
+        echo "Artist"
+        read artist
+        echo "Title"
+        read title
+        echo "Album"
+        read album
+        youtube-dl --extract-audio --audio-format mp3 --output "/storage/emulated/0/Music/$artist-$title.%(ext)s" $url
+        mid3v2 -a $artist -t $title -A $album /storage/emulated/0/Music/$artist-$title.mp3
+    ;;
+    s)
+        scdl -l $url --path /storage/emulated/0/Music
+        echo "s need some work"
+    ;;
+    w)
+        cd ~/storage/downloads
+        wget $url
+    ;;
+    y)
+        youtube-dl -o "/storage/emulated/0/Movies/%(title)s.%(ext)s" $url
+    ;;
+    g)
+        echo "Which directory ?"
+        echo "1) ~/tmp/elixir"
+        echo "2) ~/tmp/erlang"
+        echo "3) ~/tmp/js"
+        echo "4) ~/tmp/rust"
+        echo "5) ~/tmp/tmp"
+        echo "6) ~/tmp/ts"
+        echo "x) cancel"
+
+        read dir
+        case $dir in
+            1)
+                cd ~/tmp/elixir
+                git clone $url
+            ;;
+            2)
+                cd ~/tmp/erlang git clone $url
+            ;;
+            3)
+                cd ~/tmp/js
+                git clone $url
+            ;;
+            4)
+                cd ~/tmp/rust
+                git clone $url
+            ;;
+            5)
+                cd ~/tmp/tmp
+                git clone $url
+            ;;
+            6)
+                cd ~/tmp/ts
+                git clone $url
+            ;;
+            x)
+                echo "bye"
+            ;;
+        esac
+    ;;
+    x)
+        echo "bye"
+    ;;
+esac

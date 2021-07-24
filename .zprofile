@@ -30,6 +30,7 @@ export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
 export PATH="$PATH:$GOPATH/bin"
 export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"
 
+export PATH="$PATH:$HOME/.mix/escripts"
 # Other program settings:
 export DICS="/usr/share/stardict/dic/"
 export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
