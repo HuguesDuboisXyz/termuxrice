@@ -155,10 +155,17 @@ alias \
 
 # Cd
 alias \
+	cd-projects="cd ~/src/projects" \
 	cd-go="cd ~/src/projects/go" \
 	cd-vlang="cd ~/src/projects/vlang" \
+	cd-zig="cd ~/src/projects/zig" \
 	cd-elixir="cd ~/src/projects/elixir" \
 	cd-erlang="cd ~/src/projects/erlang" \
-	cd-projects="cd ~/src/projects" \
+	cd-tmp="cd ~/src/tmp" \
+	cd-tmp-go="cd ~/tmp/go" \
+	cd-tmp-vlang="cd ~/tmp/vlang" \
+	cd-tmp-zig="cd ~/tmp/zig" \
+	cd-tmp-elixir="cd ~/tmp/elixir" \
+	cd-tmp-erlang="cd ~/tmp/erlang" \
 	cd-shopli="cd ~/src/projects/elixir/shopli" \
 	cd-wk="cd ~/src/projects/elixir/wk_job"
