@@ -15,6 +15,7 @@ clang
 cmake
 command-not-found
 coreutils
+ctags
 curl
 dart
 dash
@@ -37,10 +38,12 @@ fontconfig
 freetype
 fribidi
 fzf
+fzy
 game-repo
 gawk
 gdbm
 giflib
+git-delta
 git
 glib
 gnupg
@@ -63,6 +66,7 @@ less
 libandroid-glob
 libandroid-shmem
 libandroid-support
+libaom
 libarchive
 libass
 libassuan
@@ -89,12 +93,14 @@ libiconv
 libicu
 libid3tag
 libidn2
+libjansson
 libjpeg-turbo
 libksba
 libllvm
 libltdl
 liblua52
 liblua53
+libluajit
 liblz4
 liblzma
 libmp3lame
@@ -108,6 +114,7 @@ libnpth
 libogg
 libopus
 libpng
+librav1e
 libsndfile
 libsoxr
 libsqlite
@@ -117,6 +124,7 @@ libtermkey
 libtiff
 libtirpc
 libtool
+libtreesitter
 libunibilium
 libunistring
 libuuid
@@ -135,6 +143,7 @@ libxcb
 libxdmcp
 libxext
 libxml2
+libyaml
 lld
 lsof
 luv
@@ -183,6 +192,7 @@ rust
 science-repo
 sed
 speexdsp
+sqlite
 stfl
 tar
 termux-am
@@ -206,5 +216,6 @@ x11-repo
 xvidcore
 xxhash
 xz-utils
+zip
 zlib
 zsh

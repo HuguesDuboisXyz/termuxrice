@@ -3,24 +3,32 @@
 SCRIPT=$(readlink -f "$0")
 BASE_DIR=$(dirname "$SCRIPT")
 
-
 pkg update
 
 for p in `cat list-pkg.txt`; do
-        pkg install $p
+	pkg install $p
 done
 
-mkdir -P $HOME/tmp/elixir
-mkdir -P $HOME/tmp/erlang
-mkdir -P $HOME/tmp/go
-mkdir -P $HOME/tmp/js
-mkdir -P $HOME/tmp/pharo
-mkdir -P $HOME/tmp/python
-mkdir -P $HOME/tmp/rust
-mkdir -P $HOME/tmp/tmp
-mkdir -P $HOME/tmp/ts
+DIRECTORIES="elixir erlang go vlang js python rust ts"
+for d in $DIRECTORIES; do
+	mkdir -p $HOME/tmp/$d;
+	mkdir -p $HOME/src/projects/$d;
+done
+mkdir -p $HOME/tmp/tmp
 
 ln -s $BASE_DIR/bin $HOME/bin
 ln -s $BASE_DIR/.termux $HOME/.termux
 ln -s $BASE_DIR/.local $HOME/.local
 ln -s $BASE_DIR/.config $HOME/.config
+
+mkdir -p $HOME/src/local/erlang
+cd $HOME/src/local/erlang
+git clone https://github.com/erlang-ls/erlang_ls.git
+git clone https://github.com/WhatsApp/erlfmt
+git clone https://github.com/lfe/lfe
+
+mkdir -p $HOME/src/local/vlang
+cd $HOME/src/local/vlang
+git clone https://github.com/vlang/v
+git clone https://github.com/vlang/vls.git
+cd $BASE_DIR
