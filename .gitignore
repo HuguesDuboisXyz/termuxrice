@@ -33,6 +33,8 @@
 .local/bin/rebar3
 .local/bin/v
 .local/bin/vls
+.local/bin/zig
+.local/bin/zls
 .local/include
 .local/lib
 .local/share/cargo

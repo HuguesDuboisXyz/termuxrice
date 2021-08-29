@@ -37,25 +37,49 @@ Plug 'majutsushi/tagbar'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}  " Autocompletion
 Plug 'dense-analysis/ale'                        " linters
 Plug 'sbdchd/neoformat'                          " auto format
+
+Plug 'srstevenson/vim-picker'
+
 "Plug 'SirVer/ultisnips'
 " lisp language family
 "Plug 'bhurlow/vim-parinfer'
 " clojure
 "Plug 'Olical/conjure', {'tag': 'v4.0.0'}
-" vlang
-Plug 'ollykel/v-vim'
-" elixir
+
+" ------------------------------------------------
+" - Beam languages erlang / elixir / gleam / lfe -
+" ------------------------------------------------
+" Erlang
+Plug 'vim-erlang/vim-erlang-runtime'
+" Elixir
 Plug 'elixir-lang/vim-elixir'
 Plug 'avdgaag/vim-phoenix'
 "Plug 'mmorearty/elixir-ctags'
 Plug 'mattreduce/vim-mix'
 "Plug 'BjRo/vim-extest'
+" Gleam
+Plug 'gleam-lang/gleam.vim'
 
-Plug 'vim-erlang/vim-erlang-runtime' " erlang support
+" ------------------------------------------------
+" - go programming
+" ------------------------------------------------
+Plug 'fatih/vim-go'
 
 Plug 'editorconfig/editorconfig-vim'
 
-" frontend development
+" ------------------------------------------------
+" - vlang programming
+" ------------------------------------------------
+Plug 'ollykel/v-vim'
+
+" ------------------------------------------------
+" - zig programming
+" ------------------------------------------------
+Plug 'ziglang/zig.vim'
+
+" ------------------------------------------------
+" - frontend development
+" ------------------------------------------------
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
@@ -72,23 +96,32 @@ endif
 "let g:gruvbox_contrast_dark = 'hard'
 "let g:gruvbox_invert_selection='0'
 colorscheme gruvbox
+
 set bg=dark
 set go=a
 set mouse=a
 set nohlsearch
-
 set clipboard+=unnamedplus
-"set clipboard^=unnamed,unnamedplus
+" Toggle background with <leader>bg
+map <leader>bg :let &background = (&background == "dark"? "light" : "dark")<CR>
 
+let is_transparent = 0
+function! Toggle_transparent_background()
+  if g:is_transparent != 1
+    set bg=dark
+    let g:is_transparent = 1
+  else
+    hi Normal guibg=NONE ctermbg=NONE
+    let g:is_transparent = 0
+  endif
+endfunction
+nnoremap <F1> :call Toggle_transparent_background()<CR>
 " Override the search highlight color with a combination that is easier to
 " read. The default PaperColor is dark green backgroun with black foreground.
 "
 " Reference:
 " - http://vim.wikia.com/wiki/Xterm256_color_names_for_console_Vim
 "highlight Search guibg=DeepPink4 guifg=White ctermbg=53 ctermfg=White
-
-" Toggle background with <leader>bg
-map <leader>bg :let &background = (&background == "dark"? "light" : "dark")<CR>
 
 nmap <leader>l :set list!<CR>
 
@@ -117,8 +150,8 @@ nmap <leader>l :set list!<CR>
 	set listchars=nbsp:␣,tab:\|\ ,trail:▫,eol:¬
 	"set listchars=tab:\|\ ,trail:▫,eol:¬,space:·
 	"set listchars=tab:\|\ ,trail:▫
-  set nospell                       " disable spelling
-  set noswapfile                    " disable swapfile usage
+	set nospell                       " disable spelling
+	set noswapfile                    " disable swapfile usage
 	set nowrap
 	set noerrorbells                  " No bells!
 	set novisualbell                  " I said, no bells!
@@ -132,6 +165,7 @@ nmap <leader>l :set list!<CR>
 	set foldlevelstart=30             " default foldlevel to 30 folds
 	" Use all the memory needed, for maximum performance.
 	set maxmempattern=2000000
+	highlight Normal guibg=NONE ctermbg=NONE
 
 
 " Fix some common typos
@@ -295,8 +329,41 @@ nnoremap <F2> :NERDTreeToggle<CR>
 " Add shortcut for toggling the tag bar
 nnoremap <F3> :TagbarToggle<CR>
 
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+
+" Language: Go
+" Tagbar configuration for Golang
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+
 "----------------------------------------------
-" Plugin: 'majutsushi/tagbar'
+" Plugin: 'vifm/vifm.vim'
 "----------------------------------------------
 nnoremap <F4> :Vifm<CR>
 "----------------------------------------------
@@ -305,6 +372,20 @@ nnoremap <F4> :Vifm<CR>
 nmap <leader>gs :G<CR>
 nmap <leader>gj :diffget //3<CR>
 nmap <leader>gf :diffget //2<CR>
+
+"----------------------------------------------
+" Plugin: srstevenson/vim-picker
+"----------------------------------------------
+nmap <unique> <leader>pe <Plug>(PickerEdit)
+nmap <unique> <leader>ps <Plug>(PickerSplit)
+nmap <unique> <leader>pt <Plug>(PickerTabedit)
+nmap <unique> <leader>pd <Plug>(PickerTabdrop)
+nmap <unique> <leader>pv <Plug>(PickerVsplit)
+nmap <unique> <leader>pb <Plug>(PickerBuffer)
+nmap <unique> <leader>p] <Plug>(PickerTag)
+nmap <unique> <leader>pw <Plug>(PickerStag)
+nmap <unique> <leader>po <Plug>(PickerBufferTag)
+nmap <unique> <leader>ph <Plug>(PickerHelp)
 "----------------------------------------------
 " Plugin: neoclide/coc.nvim
 "----------------------------------------------
@@ -390,3 +471,298 @@ if has("autocmd")
 	autocmd Filetype nitrogen inoremap # X#
 	autocmd FileType nitrogen set filetype=erlang smartindent autoindent expandtab shiftwidth=4 tabstop=4 softtabstop=4 indentexpr=""
 endif
+
+"----------------------------------------------
+" Language: Golang
+"----------------------------------------------
+au FileType go set noexpandtab
+au FileType go set shiftwidth=4
+au FileType go set softtabstop=4
+au FileType go set tabstop=4
+
+" Mappings
+au FileType go nmap <F8> :GoMetaLinter<cr>
+au FileType go nmap <F9> :GoCoverageToggle -short<cr>
+au FileType go nmap <F10> :GoTest -short<cr>
+au FileType go nmap <F12> <Plug>(go-def)
+au Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
+au Filetype go nmap <leader>gah <Plug>(go-alternate-split)
+au Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
+au FileType go nmap <leader>gt :GoDeclsDir<cr>
+au FileType go nmap <leader>gc <Plug>(go-coverage-toggle)
+"au FileType go nmap <leader>gd <Plug>(go-def)
+au FileType go nmap <leader>gd <Plug>(go-def-tab)
+au FileType go nmap <leader>gdv <Plug>(go-def-vertical)
+au FileType go nmap <leader>gdh <Plug>(go-def-split)
+au FileType go nmap <leader>gD <Plug>(go-doc)
+au FileType go nmap <leader>gDv <Plug>(go-doc-vertical)
+
+" Run goimports when running gofmt
+let g:go_fmt_command = "goimports"
+
+" Set neosnippet as snippet engine
+"let g:go_snippet_engine = "neosnippet"
+
+" Enable syntax highlighting per default
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+
+" Show the progress when running :GoCoverage
+let g:go_echo_command_info = 1
+
+" Show type information
+let g:go_auto_type_info = 1
+
+" Highlight variable uses
+let g:go_auto_sameids = 1
+
+" Fix for location list when vim-go is used together with Syntastic
+let g:go_list_type = "quickfix"
+
+" Add the failing test name to the output of :GoTest
+let g:go_test_show_name = 1
+
+" gometalinter configuration
+let g:go_metalinter_command = ""
+let g:go_metalinter_deadline = "5s"
+let g:go_metalinter_enabled = [
+    \ 'deadcode',
+    \ 'errcheck',
+    \ 'gas',
+    \ 'goconst',
+    \ 'gocyclo',
+    \ 'golint',
+    \ 'gosimple',
+    \ 'ineffassign',
+    \ 'vet',
+    \ 'vetshadow'
+\]
+
+" Set whether the JSON tags should be snakecase or camelcase.
+let g:go_addtags_transform = "snakecase"
+
+" neomake configuration for Go.
+let g:neomake_go_enabled_makers = [ 'go', 'gometalinter' ]
+let g:neomake_go_gometalinter_maker = {
+  \ 'args': [
+  \   '--tests',
+  \   '--enable-gc',
+  \   '--concurrency=3',
+  \   '--fast',
+  \   '-D', 'aligncheck',
+  \   '-D', 'dupl',
+  \   '-D', 'gocyclo',
+  \   '-D', 'gotype',
+  \   '-E', 'errcheck',
+  \   '-E', 'misspell',
+  \   '-E', 'unused',
+  \   '%:p:h',
+  \ ],
+  \ 'append_file': 0,
+  \ 'errorformat':
+  \   '%E%f:%l:%c:%trror: %m,' .
+  \   '%W%f:%l:%c:%tarning: %m,' .
+  \   '%E%f:%l::%trror: %m,' .
+  \   '%W%f:%l::%tarning: %m'
+  \ }
+
+"----------------------------------------------
+" Language: apiblueprint
+"----------------------------------------------
+au FileType apiblueprint set expandtab
+au FileType apiblueprint set shiftwidth=4
+au FileType apiblueprint set softtabstop=4
+au FileType apiblueprint set tabstop=4
+
+"----------------------------------------------
+" Language: Bash
+"----------------------------------------------
+au FileType sh set noexpandtab
+au FileType sh set shiftwidth=2
+au FileType sh set softtabstop=2
+au FileType sh set tabstop=2
+
+"----------------------------------------------
+" Language: CSS
+"----------------------------------------------
+au FileType css set expandtab
+au FileType css set shiftwidth=2
+au FileType css set softtabstop=2
+au FileType css set tabstop=2
+
+"----------------------------------------------
+" Language: erlang
+"----------------------------------------------
+au FileType erlang set expandtab
+au FileType erlang set shiftwidth=4
+au FileType erlang set softtabstop=4
+au FileType erlang set tabstop=4
+
+"----------------------------------------------
+" Language: fish
+"----------------------------------------------
+au FileType fish set expandtab
+au FileType fish set shiftwidth=2
+au FileType fish set softtabstop=2
+au FileType fish set tabstop=2
+
+"----------------------------------------------
+" Language: gitcommit
+"----------------------------------------------
+au FileType gitcommit setlocal spell
+au FileType gitcommit setlocal textwidth=80
+
+"----------------------------------------------
+" Language: gitconfig
+"----------------------------------------------
+au FileType gitconfig set noexpandtab
+au FileType gitconfig set shiftwidth=2
+au FileType gitconfig set softtabstop=2
+au FileType gitconfig set tabstop=2
+
+"----------------------------------------------
+" Language: HTML
+"----------------------------------------------
+au FileType html set expandtab
+au FileType html set shiftwidth=2
+au FileType html set softtabstop=2
+au FileType html set tabstop=2
+
+"----------------------------------------------
+" Language: JavaScript
+"----------------------------------------------
+au FileType javascript set expandtab
+au FileType javascript set shiftwidth=2
+au FileType javascript set softtabstop=2
+au FileType javascript set tabstop=2
+
+"----------------------------------------------
+" Language: JSON
+"----------------------------------------------
+au FileType json set expandtab
+au FileType json set shiftwidth=2
+au FileType json set softtabstop=2
+au FileType json set tabstop=2
+
+"----------------------------------------------
+" Language: LESS
+"----------------------------------------------
+au FileType less set expandtab
+au FileType less set shiftwidth=2
+au FileType less set softtabstop=2
+au FileType less set tabstop=2
+
+"----------------------------------------------
+" Language: Make
+"----------------------------------------------
+au FileType make set noexpandtab
+au FileType make set shiftwidth=2
+au FileType make set softtabstop=2
+au FileType make set tabstop=2
+
+"----------------------------------------------
+" Language: Markdown
+"----------------------------------------------
+au FileType markdown setlocal spell
+au FileType markdown set expandtab
+au FileType markdown set shiftwidth=4
+au FileType markdown set softtabstop=4
+au FileType markdown set tabstop=4
+au FileType markdown set syntax=markdown
+
+"----------------------------------------------
+" Language: PlantUML
+"----------------------------------------------
+au FileType plantuml set expandtab
+au FileType plantuml set shiftwidth=2
+au FileType plantuml set softtabstop=2
+au FileType plantuml set tabstop=2
+
+"----------------------------------------------
+" Language: Protobuf
+"----------------------------------------------
+au FileType proto set expandtab
+au FileType proto set shiftwidth=2
+au FileType proto set softtabstop=2
+au FileType proto set tabstop=2
+
+"----------------------------------------------
+" Language: Python
+"----------------------------------------------
+au FileType python set expandtab
+au FileType python set shiftwidth=4
+au FileType python set softtabstop=4
+au FileType python set tabstop=4
+
+"----------------------------------------------
+" Language: Ruby
+"----------------------------------------------
+au FileType ruby set expandtab
+au FileType ruby set shiftwidth=2
+au FileType ruby set softtabstop=2
+au FileType ruby set tabstop=2
+
+" Enable neomake for linting.
+"au FileType ruby autocmd BufWritePost * Neomake
+
+"----------------------------------------------
+" Language: SQL
+"----------------------------------------------
+au FileType sql set expandtab
+au FileType sql set shiftwidth=2
+au FileType sql set softtabstop=2
+au FileType sql set tabstop=2
+
+"----------------------------------------------
+" Language: Thrift
+"----------------------------------------------
+au FileType thrift set expandtab
+au FileType thrift set shiftwidth=2
+au FileType thrift set softtabstop=2
+au FileType thrift set tabstop=2
+
+"----------------------------------------------
+" Language: TOML
+"----------------------------------------------
+au FileType toml set expandtab
+au FileType toml set shiftwidth=2
+au FileType toml set softtabstop=2
+au FileType toml set tabstop=2
+
+"----------------------------------------------
+" Language: TypeScript
+"----------------------------------------------
+au FileType typescript set expandtab
+au FileType typescript set shiftwidth=4
+au FileType typescript set softtabstop=4
+au FileType typescript set tabstop=4
+
+"----------------------------------------------
+" Language: Vader
+"----------------------------------------------
+au FileType vader set expandtab
+au FileType vader set shiftwidth=2
+au FileType vader set softtabstop=2
+au FileType vader set tabstop=2
+
+"----------------------------------------------
+" Language: vimscript
+"----------------------------------------------
+au FileType vim set expandtab
+au FileType vim set shiftwidth=4
+au FileType vim set softtabstop=4
+au FileType vim set tabstop=4
+
+"----------------------------------------------
+" Language: YAML
+"----------------------------------------------
+au FileType yaml set expandtab
+au FileType yaml set shiftwidth=2
+au FileType yaml set softtabstop=2
+au FileType yaml set tabstop=2

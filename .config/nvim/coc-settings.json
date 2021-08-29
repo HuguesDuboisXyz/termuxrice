@@ -12,6 +12,12 @@
       "filetypes": [
         "erlang"
       ]
+    },
+    "zls": {
+      "command": "zls",
+      "filetypes": [
+        "zig"
+      ]
     }
   },
   "eslint.autoFixOnSave": true,
