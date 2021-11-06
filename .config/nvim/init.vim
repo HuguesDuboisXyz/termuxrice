@@ -1,10 +1,10 @@
 let mapleader = "\<Space>"
 
 if ! filereadable(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim"'))
-	echo "Downloading junegunn/vim-plug to manage plugins..."
-	silent !mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/
-	silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim
-	autocmd VimEnter * PlugInstall
+    echo "Downloading junegunn/vim-plug to manage plugins..."
+    silent !mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/
+    silent !curl "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" > ${XDG_CONFIG_HOME:-$HOME/.config}/nvim/autoload/plug.vim
+    autocmd VimEnter * PlugInstall
 endif
 
 call plug#begin(system('echo -n "${XDG_CONFIG_HOME:-$HOME/.config}/nvim/plugged"'))
@@ -389,7 +389,19 @@ nmap <unique> <leader>ph <Plug>(PickerHelp)
 "----------------------------------------------
 " Plugin: neoclide/coc.nvim
 "----------------------------------------------
-let g:coc_global_extensions = ['coc-elixir', 'coc-diagnostic', 'coc-rust-analyzer', 'coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']
+let g:coc_global_extensions = [
+  \ 'coc-elixir',
+  \ 'coc-diagnostic',
+  \ 'coc-rust-analyzer',
+  \ 'coc-tslint-plugin',
+  \ 'coc-tsserver',
+  \ 'coc-emmet',
+  \ 'coc-css',
+  \ 'coc-html',
+  \ 'coc-json',
+  \ 'coc-yank',
+  \ 'coc-prettier'
+  \ ]
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
     let col = col('.') - 1
@@ -444,6 +456,12 @@ augroup fmt
   autocmd BufWritePre * undojoin | Neoformat
 augroup END
 
+let g:neoformat_typescriptreact_prettier = {
+        \ 'exe': 'prettier',
+        \ 'args': ['--stdin', '--stdin-filepath', '"%:p"', '--parser', 'typescript'],
+        \ 'stdin': 1
+        \ }
+    let g:neoformat_enabled_typescriptreact = ['tsfmt', 'prettier']
 "----------------------------------------------
 " Plugin: ollykel/v-vim
 "----------------------------------------------

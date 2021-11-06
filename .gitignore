@@ -4,6 +4,9 @@
 .config/calcurse/todo
 .config/clojure/
 .config/coc/
+.config/configstore
+.config/github-copilot/
+.config/gobang/
 .config/htop/
 .config/mpd/database
 .config/mpd/log
@@ -19,6 +22,7 @@
 .config/vifm/scripts
 .config/vifm/vifm-help.txt
 .config/vifm/vifminfo
+.config/vifm/vifminfo.json
 .config/zsh/.zcompdump
 .config/zshnameddirrc
 .local/bin/efe
@@ -38,9 +42,9 @@
 .local/include
 .local/lib
 .local/share/cargo
+.local/share/go
 .local/share/history
 .local/share/lf
-.local/share/go
 .local/share/newsboat
 .local/share/nvim
 .local/share/password-store
