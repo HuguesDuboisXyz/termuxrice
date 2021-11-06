@@ -4,10 +4,7 @@ SCRIPT=$(readlink -f "$0")
 BASE_DIR=$(dirname "$SCRIPT")
 
 pkg update
-
-for p in `cat list-pkg.txt`; do
-	pkg install $p
-done
+pkg install $(cat list-pkg.txt)
 
 DIRECTORIES="elixir erlang go vlang js python rust ts"
 for d in $DIRECTORIES; do
