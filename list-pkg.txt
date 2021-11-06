@@ -1,3 +1,4 @@
+Listing...
 apt
 autoconf
 automake
@@ -73,6 +74,7 @@ libassuan
 libbz2
 libc++
 libcaca
+libcompiler-rt
 libcrypt
 libcurl
 libdav1d
@@ -114,6 +116,7 @@ libnpth
 libogg
 libopus
 libpng
+libprotobuf
 librav1e
 libsndfile
 libsoxr
@@ -179,6 +182,7 @@ postgresql
 procps
 proot-distro
 proot
+protobuf
 psmisc
 pulseaudio
 python
