@@ -104,6 +104,8 @@ clear
 source /data/data/com.termux/files/usr/share/doc/fzf/key-bindings.zsh 2>/dev/null
 source /data/data/com.termux/files/usr/share/doc/fzf/completion.zsh 2>/dev/null
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/fzf-extra.zsh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/fzf-extra.zsh"
+# Load fzf history
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-fzf-history-search/zsh-fzf-history-search.zsh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-fzf-history-search/zsh-fzf-history-search.zsh" 2>/dev/null
 # Load fish autosuggestions
 source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" 2>/dev/null
 # Load syntax highlighting; should be last.

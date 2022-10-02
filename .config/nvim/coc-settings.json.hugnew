@@ -1,6 +1,12 @@
 {
   "coc.preferences.jumpCommand": "tab drop",
   "languageserver": {
+    "vlang": {
+      "command": "vls",
+      "filetypes": [
+        "vlang"
+      ]
+    },
     "erlang": {
       "command": "erlang_ls",
       "filetypes": [
@@ -14,6 +20,11 @@
       ]
     }
   },
+  "go.goplsArgs": [
+    "-remote",
+    "unix;/data/data/com.termux/files/home/tmp/gopls-daemon-socket"
+  ],
+  "go.goplsPath": "/data/data/com.termux/files/home/.local/share/go/bin/gopls",
   "eslint.autoFixOnSave": true,
   "eslint.filetypes": [
     "javascript",

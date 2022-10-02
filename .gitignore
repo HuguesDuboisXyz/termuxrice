@@ -53,3 +53,4 @@
 .local/share/weatherreport
 .local/share/yarn
 .local/share/zathura
+.termux/*.ttf

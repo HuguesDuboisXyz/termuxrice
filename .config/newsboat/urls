@@ -1,12 +1,19 @@
+https://eighty-twenty.org/index.atom
+https://ellie.wtf/rss/
+https://hackaday.com/blog/feed/
+https://webzine.puffy.cafe/atom.xml "OpenBSD Webzine"
 https://linuxsmartphones.com/feed/
 http://lukesmith.xyz/rss.xml
 https://notrelated.libsyn.com/rss
 https://venam.nixers.net/blog/feed.xml
+https://dataswamp.org/~solene/rss.xml
 https://oli.me.uk/feed.xml "clojure -- Oliver Caldwell's (Blog)"
 http://feeds.feedburner.com/ElixirLang "Elixir lang blog"
+http://www.planeterlang.com/atom.xml?format=xml "Planet Erlang"
 http://blog.erlang.org/feed.xml "Erlang blog"
 http://blog.erlware.org/index.xml "Erlang/Elxir blog"
 https://www.erlang-solutions.com/news.rss "Erlang solutions"
+https://www.erlang-solutions.com/blog/feed/ "Erlang solutions"
 https://serokell.io/blog.rss.xml "Serokell blog"
 https://inquisitivedeveloper.com/rss/ "Learm me with Elixir"
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2eYFnH61tmytImy1mTYvhA "linux -- Luke Smith (YouTube)"

@@ -46,7 +46,10 @@ alias g="git" \
   gb="git branch" \
   gba="git branch --all" \
   gbd="git branch -D " \
-  gc="git commit -m" \
+  gc="git commit" \
+	gcm="git commit -m" \
+	gca="git commit --amend" \
+	gcane="git commit --amend --no-edit" \
   gco="git checkout " \
   gr="git reset" \
   gl="git log" \
@@ -140,10 +143,10 @@ alias \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" \
 	alsamixer="alsamixer; kill -44 $(pidof dwmblocks)" \
 	wttr="curl wttr.in" \
-	pbcopy="xclip -i" \
-	pbpaste="xclip -o" \
-	pwdcopy="pwd | xclip -i" \
-	pwdpaste='cd `xclip -o`' \
+	pbcopy="termux-clipboard-set" \
+	pbpaste="termux-clipboard-get" \
+	pwdcopy="pwd | termux-clipboard-set" \
+	pwdpaste='cd `termux-clipboard-get`' \
 	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
   ssh-tmux="ssh-agent tmux"
 

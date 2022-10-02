@@ -42,21 +42,30 @@ Plug 'srstevenson/vim-picker'
 
 "Plug 'SirVer/ultisnips'
 " lisp language family
-"Plug 'bhurlow/vim-parinfer'
-" clojure
-"Plug 'Olical/conjure', {'tag': 'v4.0.0'}
+Plug 'eraserhd/parinfer-rust', {'do':
+        \  'cargo build --release'}
 
+
+" lisp family
+Plug 'Olical/conjure'
+Plug 'benknoble/vim-racket'
+Plug 'kovisoft/slimv'
+Plug 'bhurlow/vim-parinfer'
+Plug 'kien/rainbow_parentheses.vim'
 " ------------------------------------------------
 " - Beam languages erlang / elixir / gleam / lfe -
 " ------------------------------------------------
 " Erlang
 Plug 'vim-erlang/vim-erlang-runtime'
 " Elixir
+Plug 'slashmili/alchemist.vim'
 Plug 'elixir-lang/vim-elixir'
 Plug 'avdgaag/vim-phoenix'
 "Plug 'mmorearty/elixir-ctags'
 Plug 'mattreduce/vim-mix'
 "Plug 'BjRo/vim-extest'
+" lfe
+Plug 'lfe-support/vim-lfe'
 " Gleam
 Plug 'gleam-lang/gleam.vim'
 
@@ -71,6 +80,7 @@ Plug 'editorconfig/editorconfig-vim'
 " - vlang programming
 " ------------------------------------------------
 Plug 'ollykel/v-vim'
+"Plug 'cheap-glitch/vim-v'
 
 " ------------------------------------------------
 " - zig programming
@@ -392,7 +402,7 @@ nmap <unique> <leader>ph <Plug>(PickerHelp)
 let g:coc_global_extensions = [
   \ 'coc-elixir',
   \ 'coc-diagnostic',
-  \ 'coc-rust-analyzer',
+  "\ 'coc-rust-analyzer',
   \ 'coc-tslint-plugin',
   \ 'coc-tsserver',
   \ 'coc-emmet',
@@ -400,7 +410,9 @@ let g:coc_global_extensions = [
   \ 'coc-html',
   \ 'coc-json',
   \ 'coc-yank',
-  \ 'coc-prettier'
+  \ 'coc-prettier',
+  \ 'coc-conjure',
+  \ 'coc-deno'
   \ ]
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
@@ -462,17 +474,18 @@ let g:neoformat_typescriptreact_prettier = {
         \ 'stdin': 1
         \ }
     let g:neoformat_enabled_typescriptreact = ['tsfmt', 'prettier']
-"----------------------------------------------
-" Plugin: ollykel/v-vim
-"----------------------------------------------
-" Enable automatically formatting file via "v fmt -" before writing buffer.
-let g:v_autofmt_bufwritepre = 1
 
 "----------------------------------------------
 " frontend development js / ts / react
 "----------------------------------------------
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+"----------------------------------------------
+" Plugin: ollykel/v-vim
+"----------------------------------------------
+" Enable automatically formatting file via "v fmt -" before writing buffer.
+"let g:v_autofmt_bufwritepre = 1
 
 "----------------------------------------------
 " nitrogen web framework
@@ -518,6 +531,8 @@ au FileType go nmap <leader>gDv <Plug>(go-doc-vertical)
 " Run goimports when running gofmt
 let g:go_fmt_command = "goimports"
 
+"let g:go_gopls_options = ['-remote="unix;/data/data/com.termux/files/home/tmp/gopls-daemon-socket']
+"let g:go_gopls_matcher = "fuzzy"
 " Set neosnippet as snippet engine
 "let g:go_snippet_engine = "neosnippet"
 
@@ -589,6 +604,10 @@ let g:neomake_go_gometalinter_maker = {
   \   '%E%f:%l::%trror: %m,' .
   \   '%W%f:%l::%tarning: %m'
   \ }
+
+"----------------------------------------------
+" Language: lisp
+"----------------------------------------------
 
 "----------------------------------------------
 " Language: apiblueprint

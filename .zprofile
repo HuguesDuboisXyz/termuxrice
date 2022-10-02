@@ -6,10 +6,11 @@
 # to clean up.
 
 # Adds `~/.local/bin` to $PATH
-export PATH="$PATH:$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':')"
+export PATH="$(du "$HOME/.local/bin/" | cut -f2 | paste -sd ':'):$PATH"
 
 # Default programs:
 export EDITOR="nvim"
+export WWW_HOME="https://duckduckgo.com"
 
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -25,12 +26,15 @@ export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/password-store"
 export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 export ANDROID_SDK_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/android"
 export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
-export PATH="$PATH:$CARGO_HOME/bin"
+export PATH="$CARGO_HOME/bin:$PATH"
 export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
-export PATH="$PATH:$GOPATH/bin"
+export PATH="$GOPATH/bin:$PATH"
 export HISTFILE="${XDG_DATA_HOME:-$HOME/.local/share}/history"
+export ZEIT_DB="${XDG_CONFIG_HOME:-$HOME/.config}/zeit.db"
 
-export PATH="$PATH:$HOME/.mix/escripts"
+export PATH="$HOME/.mix/escripts:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
+export PATH="$HOME/.cache/rebar3/bin:$PATH"
 # Other program settings:
 export DICS="/usr/share/stardict/dic/"
 export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
